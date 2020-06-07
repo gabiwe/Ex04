@@ -6,9 +6,9 @@ namespace Ex04.Menus.Delegates
     public class MenuItem
     {
         public event Action<MenuItem> Chosen;
-        public event Action<MenuItem> ReturnedBack; 
-        private readonly string r_Text;
         private List<MenuItem> m_MenuItems;
+        private readonly string r_Text;
+        private readonly UserInputGetter r_UserInputGetter = new UserInputGetter();
 
         public string Text
         {
@@ -17,19 +17,8 @@ namespace Ex04.Menus.Delegates
 
         public List<MenuItem> MenuItems
         {
-            set
-            {
-                m_MenuItems = value;
-                foreach (MenuItem menuItem in m_MenuItems)
-                {
-                    menuItem.ReturnedBack += this.MenuItem_ReturnedBack;
-                }
-            }
-        }
-
-        private void MenuItem_ReturnedBack(MenuItem obj)
-        {
-            show();
+            set { m_MenuItems = value; }
+            get { return m_MenuItems; }
         }
 
         public MenuItem(string i_Text)
@@ -37,10 +26,9 @@ namespace Ex04.Menus.Delegates
             r_Text = i_Text;
         }
 
-        //TODO
-        public void AMethodChooseMe()
+        public void ChosenOccured()
         {
-            if (m_MenuItems == null) 
+            if (m_MenuItems == null)
             {
                 OnChosen(this);
             }
@@ -52,7 +40,9 @@ namespace Ex04.Menus.Delegates
 
         private void show()
         {
-            while (true)
+            bool continueShow = true;
+
+            while (continueShow)
             {
                 Console.Clear();
                 Console.WriteLine("{0}", r_Text);
@@ -62,34 +52,35 @@ namespace Ex04.Menus.Delegates
                     Console.WriteLine("{0}. {1}", i, m_MenuItems[i - 1].Text);
                 }
 
-                Console.WriteLine("Please choose an index of one of the options above: ");
-                string userInput = Console.ReadLine();
-                if (userInput == "0")
+                var intUserInput = r_UserInputGetter.GetUserInput(m_MenuItems.Count);
+                if (intUserInput == 0)
                 {
-                   OnReturnedBack(this); 
-                }
-
-                // validation
-                int.TryParse(userInput, out int intUserInput);
-                if (m_MenuItems == null)
-                {
-                    AMethodChooseMe();
+                    continueShow = false;
                 }
                 else
                 {
-                    m_MenuItems[intUserInput - 1].AMethodChooseMe();
+                    handleUserChoice(intUserInput);
                 }
+            }
+        }
+
+        private void handleUserChoice(int i_UserInput)
+        {
+            MenuItem chosenMenuItem = m_MenuItems[i_UserInput - 1];
+
+            if (chosenMenuItem.MenuItems == null)
+            {
+                chosenMenuItem.OnChosen(this);
+            }
+            else
+            {
+                chosenMenuItem.show();
             }
         }
 
         protected virtual void OnChosen(MenuItem i_MenuItem)
         {
             Chosen?.Invoke(i_MenuItem);
-        }
-
-        protected virtual void OnReturnedBack(MenuItem i_MenuItem)
-        {
-            ReturnedBack?.Invoke(i_MenuItem);
         }
     }
 }

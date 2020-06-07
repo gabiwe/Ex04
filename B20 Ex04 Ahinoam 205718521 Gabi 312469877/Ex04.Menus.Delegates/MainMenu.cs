@@ -7,20 +7,12 @@ namespace Ex04.Menus.Delegates
     {
         private readonly List<MenuItem> r_MenuItems;
         private readonly string r_Title;
+        private readonly UserInputGetter r_UserInputGetter = new UserInputGetter();
 
         public MainMenu(List<MenuItem> i_MenuItems, string i_Title)
         {
             r_MenuItems = i_MenuItems;
-            foreach (MenuItem menuItem in r_MenuItems)
-            {
-                menuItem.ReturnedBack += MenuItem_ReturnedBack;
-            }
             r_Title = i_Title;
-        }
-
-        private void MenuItem_ReturnedBack(MenuItem obj)
-        {
-            Show();
         }
 
         public void Show()
@@ -30,23 +22,22 @@ namespace Ex04.Menus.Delegates
             {
                 Console.Clear();
                 Console.WriteLine("{0}", r_Title);
-                // need to be an item
                 Console.WriteLine("0. Exit");
                 for (int i = 1; i <= r_MenuItems.Count; i++)
                 {
                     Console.WriteLine("{0}. {1}", i, r_MenuItems[i - 1].Text);
                 }
 
-                Console.WriteLine("Please choose an index of one of the options above: ");
-                string userInput = Console.ReadLine();
-                if (userInput == "0")
+                int intUserInput = r_UserInputGetter.GetUserInput(r_MenuItems.Count);
+                if (intUserInput == 0)
                 {
+                    Console.WriteLine("Bye bye!");
                     quit = true;
                 }
-
-                //validation
-                int.TryParse(userInput, out int intUserInput);
-                r_MenuItems[intUserInput - 1].AMethodChooseMe();
+                else
+                {
+                    r_MenuItems[intUserInput - 1].ChosenOccured();
+                }
             }
         }
     }

@@ -21,7 +21,10 @@ namespace Ex04.Menus.Delegates
             var menuItem2 = new MenuItem("Show abc");
 
             
-            menuItem11.Chosen += MenuItem11_Chosen;
+            menuItem11.MenuItems = new List<MenuItem>()
+            {
+                new MenuItem("StamMashu")
+            };
             menuItem2.Chosen += MenuItem2_Chosen;
             List<MenuItem> menuItems = new List<MenuItem>()
             {
