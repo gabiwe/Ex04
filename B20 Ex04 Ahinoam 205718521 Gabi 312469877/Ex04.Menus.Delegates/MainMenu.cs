@@ -5,14 +5,18 @@ namespace Ex04.Menus.Delegates
 {
     public class MainMenu
     {
-        private readonly List<MenuItem> r_MenuItems;
-        private readonly string r_Title;
         private readonly UserInputGetter r_UserInputGetter = new UserInputGetter();
+        private List<MenuItem> m_MenuItems;
+        private string m_Title;
 
-        public MainMenu(List<MenuItem> i_MenuItems, string i_Title)
+        public string Title
         {
-            r_MenuItems = i_MenuItems;
-            r_Title = i_Title;
+            set { m_Title = value; }
+        }
+
+        public void Build(List<MenuItem> i_MenuItems)
+        {
+            m_MenuItems = i_MenuItems;
         }
 
         public void Show()
@@ -21,14 +25,14 @@ namespace Ex04.Menus.Delegates
             while (!quit)
             {
                 Console.Clear();
-                Console.WriteLine("{0}", r_Title);
+                Console.WriteLine("{0}", m_Title);
                 Console.WriteLine("0. Exit");
-                for (int i = 1; i <= r_MenuItems.Count; i++)
+                for (int i = 1; i <= m_MenuItems.Count; i++)
                 {
-                    Console.WriteLine("{0}. {1}", i, r_MenuItems[i - 1].Text);
+                    Console.WriteLine("{0}. {1}", i, m_MenuItems[i - 1].Text);
                 }
 
-                int intUserInput = r_UserInputGetter.GetUserInput(r_MenuItems.Count);
+                int intUserInput = r_UserInputGetter.GetUserInput(m_MenuItems.Count);
                 if (intUserInput == 0)
                 {
                     Console.WriteLine("Bye bye!");
@@ -36,7 +40,7 @@ namespace Ex04.Menus.Delegates
                 }
                 else
                 {
-                    r_MenuItems[intUserInput - 1].ChosenOccured();
+                    m_MenuItems[intUserInput - 1].ChosenOccured();
                 }
             }
         }
