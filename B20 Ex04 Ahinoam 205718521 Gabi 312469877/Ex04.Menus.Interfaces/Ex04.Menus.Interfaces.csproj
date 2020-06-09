@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24AEB695-D729-495B-8644-A7DBBE0DF2D6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Ex04.Menus.Test</RootNamespace>
-    <AssemblyName>Ex04.Menus.Test</AssemblyName>
+    <ProjectGuid>{3F9DBBA0-8886-439A-A9FC-757280B47CDF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Ex04.Menus.Interfaces</RootNamespace>
+    <AssemblyName>Ex04.Menus.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,28 +31,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapitalLettersCounter.cs" />
-    <Compile Include="DateProvider.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="IStartable.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeProvider.cs" />
-    <Compile Include="VersionProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ex04.Menus.Delegates\Ex04.Menus.Delegates.csproj">
-      <Project>{b02f385a-482e-4f95-acbd-e3694f3665b8}</Project>
-      <Name>Ex04.Menus.Delegates</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ex04.Menus.Interfaces\Ex04.Menus.Interfaces.csproj">
-      <Project>{3f9dbba0-8886-439a-a9fc-757280b47cdf}</Project>
-      <Name>Ex04.Menus.Interfaces</Name>
-    </ProjectReference>
+    <Compile Include="UserInputGetter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

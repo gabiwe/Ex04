@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ex04.Menus.Delegates;
+using Ex04.Menus.Interfaces;
+using MenuItem = Ex04.Menus.Delegates.MenuItem;
 
 namespace Ex04.Menus.Test
 {
@@ -8,13 +9,13 @@ namespace Ex04.Menus.Test
     {
         public static void Main()
         {
-            List<MenuItem> menuItems = buildMenuItems();
-            MainMenu mainMenu = new MainMenu();
+            List<Interfaces.MenuItem> menuItems = buildMenuItemsWithInterfaces();
+            Interfaces.MainMenu mainMenu = new Interfaces.MainMenu();
             mainMenu.Build(menuItems);
             mainMenu.Show();
         }
 
-        private static List<MenuItem> buildMenuItems()
+        private static List<MenuItem> buildMenuItemsWithDelegates()
         {
             MenuItem menuItemVersionsAndDigits = new MenuItem("Versions and Digits");
             MenuItem menuItemCountCapitals = new MenuItem("Count Capitals");
@@ -43,6 +44,43 @@ namespace Ex04.Menus.Test
             menuItemShowDate.Chosen += menuItemShowDate_Chosen;
 
             List<MenuItem> menuItems = new List<MenuItem>()
+            {
+                menuItemVersionsAndDigits,
+                menuItemShowDateOrTime
+            };
+
+            return menuItems;
+        }
+
+        private static List<Interfaces.MenuItem> buildMenuItemsWithInterfaces()
+        {
+            Interfaces.MenuItem menuItemVersionsAndDigits = new Interfaces.MenuItem("Versions and Digits");
+            Interfaces.MenuItem menuItemCountCapitals = new Interfaces.MenuItem("Count Capitals");
+            Interfaces.MenuItem menuItemShowVersion = new Interfaces.MenuItem("ShowVersion");
+
+            menuItemVersionsAndDigits.MenuItems = new List<Interfaces.MenuItem>()
+            {
+                menuItemCountCapitals,
+                menuItemShowVersion
+            };
+
+            menuItemCountCapitals.StartableItems = new List<IStartable> { new CapitalLettersCounter() };
+            menuItemShowVersion.StartableItems = new List<IStartable> { new VersionProvider() };
+
+            Interfaces.MenuItem menuItemShowDateOrTime = new Interfaces.MenuItem("Show Date/Time");
+            Interfaces.MenuItem menuItemShowTime = new Interfaces.MenuItem("Show Time");
+            Interfaces.MenuItem menuItemShowDate = new Interfaces.MenuItem("Show Date");
+
+            menuItemShowDateOrTime.MenuItems = new List<Interfaces.MenuItem>
+            {
+                menuItemShowTime,
+                menuItemShowDate
+            };
+
+            menuItemShowTime.StartableItems = new List<IStartable> { new TimeProvider() };
+            menuItemShowDate.StartableItems = new List<IStartable> { new DateProvider() };
+
+            List<Interfaces.MenuItem> menuItems = new List<Interfaces.MenuItem>()
             {
                 menuItemVersionsAndDigits,
                 menuItemShowDateOrTime
