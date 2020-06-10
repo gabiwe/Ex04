@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="CapitalLettersCounter.cs" />
     <Compile Include="DateProvider.cs" />
+    <Compile Include="DelegatesMenuCreator.cs" />
+    <Compile Include="InterfacesMenuCreator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeProvider.cs" />
