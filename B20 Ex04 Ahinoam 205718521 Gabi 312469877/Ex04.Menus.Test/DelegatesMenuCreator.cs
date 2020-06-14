@@ -86,7 +86,7 @@ namespace Ex04.Menus.Test
                 }
             }
 
-            char[] characters = userInput.ToCharArray();
+            char[] characters = userInput.ToCharArray(); ////think to extract to other method "countCapital..."
             int capitalsCount = 0;
             foreach (char character in characters)
             {

@@ -9,7 +9,7 @@ namespace Ex04.Menus.Test
         {
             MenuItem menuItemVersionsAndDigits = new MenuItem("Versions and Digits");
             MenuItem menuItemCountCapitals = new MenuItem("Count Capitals");
-            MenuItem menuItemShowVersion = new MenuItem("ShowVersion");
+            MenuItem menuItemShowVersion = new MenuItem("Show Version");
 
             menuItemVersionsAndDigits.MenuItems = new List<MenuItem>()
             {
