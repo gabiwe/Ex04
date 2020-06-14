@@ -7,14 +7,14 @@ namespace Ex04.Menus.Interfaces
         public int GetUserInput(int i_MaxInput)
         {
             bool isInputValid = false;
-            int intUserInput = default;
+            int intUserInput = 0; ////default is for c# 7 
 
             while (!isInputValid)
             {
                 Console.WriteLine("Please choose an index of one of the options above: ");
                 string userInput = Console.ReadLine();
                 isInputValid = int.TryParse(userInput, out intUserInput) &&
-                               intUserInput <= i_MaxInput && intUserInput >= 0;
+                               intUserInput <= i_MaxInput && intUserInput >= 0; // maybe 0 will be const minInput?
             }
 
             return intUserInput;

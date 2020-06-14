@@ -7,7 +7,7 @@ namespace Ex04.Menus.Delegates
         public int GetUserInput(int i_MaxInput)
         {
             bool isInputValid = false;
-            int intUserInput = default;
+            int intUserInput = 0; // default is for c# 7 
 
             while (!isInputValid)
             {
